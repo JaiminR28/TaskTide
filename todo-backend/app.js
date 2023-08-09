@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const userRouter = require("./routes/userRoute");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
@@ -9,8 +10,8 @@ mongoose
 	.connect("mongodb://localhost:27017/todo-lists")
 	.then(() => console.log("DB connection successfull !!"));
 
-app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
+app.use(cookieParser());
 // app.get("/", (req, res) => {
 // 	res.status(200).json("Hello World from the serv side");
 // });
