@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const TodoListSchema = new mongoose.Schema(
+const TodoItemSchema = new mongoose.Schema(
 	{
 		title: {
 			type: String,
@@ -19,18 +19,23 @@ const TodoListSchema = new mongoose.Schema(
 				currentDate.setHours(0, 0, 0, 0); // Set time to midnight
 				return currentDate;
 			},
+			required: "true",
 		},
 		isCompleted: { type: Boolean, default: false },
-		content: { type: String, required: true },
-		list: {
+		content: { type: String },
+		todolist: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "TodoList",
-			required: [true, "TodoList must belong to a user"],
+			required: [true, "There must be a todoList"],
 		},
 	},
-	{ Timestamps: true }
+	{
+		Timestamps: true,
+		toJson: { virtuals: true },
+		toObject: { virtuals: true },
+	}
 );
 
-const TodoList = mongoose.model("TodoList", TodoListSchema);
+const TodoItem = mongoose.model("TodoItem", TodoItemSchema);
 
-module.exports = TodoList;
+module.exports = TodoItem;

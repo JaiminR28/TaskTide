@@ -17,8 +17,17 @@ const TodoListSchema = new mongoose.Schema(
 			required: [true, "TodoList must belong to a user"],
 		},
 	},
-	{ Timestamps: true }
+	{
+		toJson: { virtuals: true },
+		toObject: { virtuals: true },
+	}
 );
+
+TodoListSchema.virtual("todoItems", {
+	ref: "TodoItem",
+	foreignField: "todolist",
+	localField: "_id",
+});
 
 const TodoList = mongoose.model("TodoList", TodoListSchema);
 

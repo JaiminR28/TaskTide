@@ -25,7 +25,12 @@ exports.getAllTodoListOfUser = async (req, res) => {
 
 	if (!user) res.status(404).json({ message: "User not found" });
 
-	const UserLists = await TodoList.find({ user: user });
-
-	if (UserLists) res.status(200).json(UserLists);
+	const doc = await TodoList.find({ user: user }).populate("todoItems");
+	if (doc)
+		res.status(200).json({
+			status: "success",
+			data: {
+				data: doc.todoItems,
+			},
+		});
 };
