@@ -34,3 +34,23 @@ exports.getAllTodoListOfUser = async (req, res) => {
 			},
 		});
 };
+
+exports.deleteTodoList = async (req, res) => {
+	try {
+		const doc = await TodoList.findByIdAndDelete(req.params.id);
+
+		if (doc) {
+			res.status(204).json({
+				status: "sucess",
+				data: null,
+			});
+		} else {
+			res.status(404).json({
+				message: "Item not found !!",
+				data: null,
+			});
+		}
+	} catch (error) {
+		console.log(error);
+	}
+};

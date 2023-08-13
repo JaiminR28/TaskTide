@@ -29,6 +29,16 @@ TodoListSchema.virtual("todoItems", {
 	localField: "_id",
 });
 
+TodoListSchema.pre(
+	"findOneAndDelete",
+	{ document: false, query: true },
+	async function (next) {
+		const docs = await this.model.find(this.getFilter());
+		console.log(docs);
+		next();
+	}
+);
+
 const TodoList = mongoose.model("TodoList", TodoListSchema);
 
 module.exports = TodoList;

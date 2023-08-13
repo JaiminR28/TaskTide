@@ -2,6 +2,7 @@ const express = require("express");
 const {
 	createTodoList,
 	getAllTodoListOfUser,
+	deleteTodoList,
 } = require("../controller/TodoListController");
 const {
 	createTodoItem,
@@ -15,6 +16,7 @@ router.get("/", getAllTodoListOfUser);
 
 router.post("/createItem", createTodoItem);
 
-router.delete("/:id", deleteTodoItem);
+router.delete("delete-item/:id", deleteTodoItem);
+router.delete("delete-list/:id", deleteTodoList);
 
 module.exports = router;
