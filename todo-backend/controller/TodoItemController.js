@@ -28,3 +28,17 @@ exports.deleteTodoItem = async (req, res) => {
 		console.log(error);
 	}
 };
+exports.updateTodoItem = async (req, res) => {
+	try {
+		const doc = await TodoItem.findByIdAndUpdate(req.params.id);
+
+		if (doc) {
+			res.status(204).json({
+				status: "sucess",
+				data: null,
+			});
+		}
+	} catch (error) {
+		console.log(error);
+	}
+};

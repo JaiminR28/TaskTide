@@ -29,10 +29,11 @@ TodoListSchema.virtual("todoItems", {
 	localField: "_id",
 });
 
-TodoListSchema.pre(
-	"findOneAndDelete",
+TodoListSchema.post(
+	"remove",
 	{ document: false, query: true },
 	async function (next) {
+		console.log("Called");
 		const docs = await this.model.find(this.getFilter());
 		console.log(docs);
 		next();

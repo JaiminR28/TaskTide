@@ -54,3 +54,22 @@ exports.deleteTodoList = async (req, res) => {
 		console.log(error);
 	}
 };
+exports.updateTodoList = async (req, res) => {
+	try {
+		const doc = await TodoList.findByIdAndUpdate(req.params.id);
+
+		if (doc) {
+			res.status(204).json({
+				status: "sucess",
+				data: null,
+			});
+		} else {
+			res.status(404).json({
+				message: "Item not found !!",
+				data: null,
+			});
+		}
+	} catch (error) {
+		console.log(error);
+	}
+};
