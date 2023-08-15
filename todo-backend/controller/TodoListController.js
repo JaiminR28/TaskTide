@@ -56,12 +56,14 @@ exports.deleteTodoList = async (req, res) => {
 };
 exports.updateTodoList = async (req, res) => {
 	try {
-		const doc = await TodoList.findByIdAndUpdate(req.params.id);
+		const doc = await TodoList.findByIdAndUpdate(req.params.id, req.body, {
+			new: true,
+		});
 
 		if (doc) {
-			res.status(204).json({
+			res.status(200).json({
 				status: "sucess",
-				data: null,
+				data: doc,
 			});
 		} else {
 			res.status(404).json({

@@ -1,4 +1,5 @@
 const TodoItem = require("../models/TodoItem");
+const { findByIdAndUpdate } = require("../models/TodoList");
 
 exports.createTodoItem = async (req, res) => {
 	try {
@@ -30,12 +31,15 @@ exports.deleteTodoItem = async (req, res) => {
 };
 exports.updateTodoItem = async (req, res) => {
 	try {
-		const doc = await TodoItem.findByIdAndUpdate(req.params.id);
+		console.log(req.params.id);
+		const doc = await TodoItem.findByIdAndUpdate(req.params.id, req.body, {
+			new: true,
+		});
 
 		if (doc) {
 			res.status(204).json({
 				status: "sucess",
-				data: null,
+				data: doc,
 			});
 		}
 	} catch (error) {
